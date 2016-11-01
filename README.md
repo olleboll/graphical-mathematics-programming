@@ -6,10 +6,11 @@ Here lays the source code for my master thesis.
 Feel free to download and use it as you please. However, there are some things that need to be done before it works completely.
 
 ## Structure
-For the application to work properly you need three.js, blockly and closure. These libraries can be found:
-three.js: https://threejs.org/
-blockly : https://github.com/google/blockly
-closure: https://github.com/google/closure-library
+For the application to work properly you need three.js, blockly and closure. These libraries can be found:<br>
+
+- three.js: https://threejs.org/
+- blockly : https://github.com/google/blockly
+- closure: https://github.com/google/closure-library
 
 Three.js should be placed on level up from the rest of the files in this project.
 
