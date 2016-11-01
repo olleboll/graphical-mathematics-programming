@@ -30,6 +30,8 @@ You can check the imports in index.html for more details.
 
 In order to have full functionality with a database. You need to setup the database. The database should look like: http://ollewahl.se/exjobb/databaseimage.html
 
+You can import the sql file in the top of the project directly into phpmyadmin to create the database.
+
 When the database is in order you need to go into /php/getData.php and fill in your specs for your database on line 84. This so you connect correctly.
 
 ## Adding custom blocks
