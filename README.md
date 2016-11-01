@@ -13,16 +13,16 @@ closure: https://github.com/google/closure-library
 
 Three.js should be placed on level up from the rest of the files in this project.
 
-src
--three.js
--graphical-mathematics-programming (this project)
-  -js
-  -php
-  -htmlfiles
-  -blockly
-    -closure
-    -blockly
-    
+- src
+  - three.js
+  - graphical-mathematics-programming (this project)
+    - js
+    - php
+    - htmlfiles
+    - blockly
+      - closure
+      - blockly
+
 You can check the imports in index.html for more details.
 
 ## Database
