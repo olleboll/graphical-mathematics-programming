@@ -1,0 +1,177 @@
+<head><meta http-equiv="content-type" content="text/html"; charset="utf-8" /></head>
+<script src="google-blockly-ab1e05f/google-blockly-ab1e05f/blockly_uncompressed.js"></script>
+<script src="google-blockly-ab1e05f/google-blockly-ab1e05f/generators/javascript.js"></script>
+<script src="google-blockly-ab1e05f/google-blockly-ab1e05f/generators/javascript/logic.js"></script>
+<script src="google-blockly-ab1e05f/google-blockly-ab1e05f/generators/javascript/loops.js"></script>
+<script src="google-blockly-ab1e05f/google-blockly-ab1e05f/generators/javascript/math.js"></script>
+<script src="google-blockly-ab1e05f/google-blockly-ab1e05f/generators/javascript/text.js"></script>
+<script src="google-blockly-ab1e05f/google-blockly-ab1e05f/generators/javascript/lists.js"></script>
+<script src="google-blockly-ab1e05f/google-blockly-ab1e05f/generators/javascript/colour.js"></script>
+<script src="google-blockly-ab1e05f/google-blockly-ab1e05f/generators/javascript/variables.js"></script>
+<script src="google-blockly-ab1e05f/google-blockly-ab1e05f/generators/javascript/procedures.js"></script>
+<script src="google-blockly-ab1e05f/google-blockly-ab1e05f/generators/javascript/graphics.js"></script>
+<script src="google-blockly-ab1e05f/google-blockly-ab1e05f/blocks/logic.js"></script>
+<script src="google-blockly-ab1e05f/google-blockly-ab1e05f/blocks/loops.js"></script>
+<script src="google-blockly-ab1e05f/google-blockly-ab1e05f/blocks/math.js"></script>
+<script src="google-blockly-ab1e05f/google-blockly-ab1e05f/blocks/text.js"></script>
+<script src="google-blockly-ab1e05f/google-blockly-ab1e05f/blocks/lists.js"></script>
+<script src="google-blockly-ab1e05f/google-blockly-ab1e05f/blocks/colour.js"></script>
+<script src="google-blockly-ab1e05f/google-blockly-ab1e05f/blocks/variables.js"></script>
+<script src="google-blockly-ab1e05f/google-blockly-ab1e05f/blocks/procedures.js"></script>
+<script src="google-blockly-ab1e05f/google-blockly-ab1e05f/blocks/graphics.js"></script>
+<script src="google-blockly-ab1e05f/google-blockly-ab1e05f/msg/js/sv.js"></script>
+<script src="blocks.js"></script>
+<script src="NeilFraser-JS-Interpreter-1544697/NeilFraser-JS-Interpreter-1544697/acorn.js"></script>
+<script src="NeilFraser-JS-Interpreter-1544697/NeilFraser-JS-Interpreter-1544697/interpreter.js"></script>
+<script src="../three.js-master/build/three.min.js"></script>
+<script src="../three.js-master/examples/js/controls/TrackballControls.js"></script>
+<script src="../three.js-master/examples/js/Detector.js"></script>
+<script src="../three.js-master/examples/js/libs/stats.min.js"></script>
+<script src="objekt.js"></script>
+<script src="examples.js"></script>
+<script src="handler.js"></script>
+
+<div id="wrapper">
+  <div id="blocklyDiv" style="width: 50%; height: 480px;"></div>
+	<div id="Canvas" style="width: 600px; height: 480px;"></div>
+</div>
+
+<style>
+#wrapper {
+	overflow: hidden;
+}
+#blocklyDiv {
+  float:left;
+}
+#Canvas {
+	border: 1px solid blue;
+  float: left;
+}
+  
+</style>
+
+<xml id="toolbox" style="display: none">
+  <category name="Logic" colour="210">
+    <block type="logic_compare"></block>
+    <block type="controls_if"></block>
+   </category>
+  <category name="Lists" colour="210">
+    <block type="lists_create_empty"></block>
+    <block type="lists_create_with"></block>
+    <block type="lists_repeat"></block>
+    <block type="lists_getIndex"></block>
+    <block type="lists_setIndex"></block></category>
+  <category name="Loops" colour="120">
+    <block type="controls_repeat_ext"></block>
+    <block type="graphics_infinite_flag"></block></category>
+  <category name="Math" colour="230">  
+    <block type="math_number"></block>
+    <block type="math_arithmetic"></block></category>
+  <category name="Graphics" colour="20">
+    <!--<block type="graphics_make_sphere"></block>
+    <block type="graphics_make_cube"></block>
+    <block type="graphics_pointer"></block>
+    <block type="graphics_move_object"></block>
+    <!--<block type="graphics_move_sim"></block>-->
+    <!--<block type="graphics_rotate_object"></block>-->
+    <block type="graphics_line"></block>
+    <block type="graphics_point"></block>
+    <!--<block type="graphics_color"></block>-->
+    <block type="colour_picker"></block></category>
+  <category name="Variables" colour="330" custom="VARIABLE"></category>
+  <category name="Functions" colour="290" custom="PROCEDURE"></category>
+</xml>
+<p>
+  <button onclick="showCode()">Visa kod</button>
+  <button onclick="runCode()">Kör</button>
+  <button onclick="saveCode()">Spara</button>
+  <button onclick="loadTemp()">Ladda</button>
+  <button onclick="loadEx11()">Exempel 1</button>
+  <button onclick="loadEx12()">Exempel 3</button>
+  <button onclick="loadEx13()">Exempel 2</button>
+  <button onclick="resetCamera()">centrera kameran</button>
+</p>
+<script>
+//<block type="variables_set"></block>
+//<block type="variables_get"></block>
+var canvasWidth = 600;
+var canvasHeight = 480;
+var scene = new THREE.Scene();
+var camera = new THREE.PerspectiveCamera( 80, canvasWidth/canvasHeight, 0.1, 2000 );
+
+var scale = 50;
+var renderer = new THREE.WebGLRenderer();
+
+renderer.setSize( canvasWidth, canvasHeight );
+container = document.getElementById( 'Canvas' );
+//document.body.appendChild( container );
+container.appendChild( renderer.domElement );
+
+var objects = [];
+
+var goals = [];
+
+var pointer;
+
+var controls;
+
+init();
+render();
+
+var workspace = Blockly.inject('blocklyDiv',
+      {toolbox: document.getElementById('toolbox'),
+     grid:
+         {spacing: 20,
+          length: 3,
+          colour: '#ccc',
+          snap: true}, 
+     zoom:
+         {controls: true,
+          wheel: false,
+          startScale: 1.0,
+          maxScale: 3,
+          minScale: 0.3,
+          scaleSpeed: 1.2},
+     trashcan: true});
+console.log('made it to init()')
+
+
+function init(){
+  
+  camera.position.x = 0;
+  camera.position.y = 0;
+  camera.position.z = 500;
+  camera.lookAt(new THREE.Vector3(0,0,0));
+  var light = new THREE.AmbientLight( 0x404040 ); // soft white light
+  scene.add( light );
+
+  var directionalLight = new THREE.DirectionalLight( 0xffffff, 0.5 );
+  directionalLight.position.set( 0, -5, 25);
+  scene.add( directionalLight );
+  renderer.setClearColor( 0x3f3f3f );
+
+  controls = new THREE.TrackballControls( camera );
+  controls.rotateSpeed = 1.0;
+  controls.zoomSpeed = 1.2;
+  controls.panSpeed = 0.8;
+  controls.noZoom = false;
+  controls.noPan = false;
+  controls.staticMoving = true;
+  controls.dynamicDampingFactor = 0.3;
+  controls.keys = [ 65, 83, 68 ];
+  controls.addEventListener( 'change', cameramoved );
+
+}
+</script>
+
+This application is very swedish heavy because it is aimed at elementary school students in Sweden.<br>
+This is by no means a finished product!<br><br><br>
+Kom igång! <br>
+1. Gå till "Variables" och lägg ut två "välj föremål till" block. <br>
+2. Gå till "Graphics" och sätt en "pekare" på ett av blocken och en "skapa sfär/kub" på ett annat. Pekar deklerationen måste komma först.<br>
+3. Gå till "Math" och ta ut ett "0" block. Sätt blocket på sfär/kub blocket och skriv ett tal (tex 50).<br>
+4. Tryck på "Run".<br>
+5. Lek med de andra blocken. <br><br><br>
+
+
+<a href="../index.html">Back!</a>

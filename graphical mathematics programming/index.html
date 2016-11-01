@@ -1,0 +1,253 @@
+
+
+<head><meta http-equiv="content-type" content="text/html"; charset="utf-8" /></head>
+<script src="google-blockly-ab1e05f/google-blockly-ab1e05f/blockly_uncompressed.js"></script>
+<script src="google-blockly-ab1e05f/google-blockly-ab1e05f/generators/javascript.js"></script>
+<script src="google-blockly-ab1e05f/google-blockly-ab1e05f/generators/javascript/logic.js"></script>
+<script src="google-blockly-ab1e05f/google-blockly-ab1e05f/generators/javascript/loops.js"></script>
+<script src="google-blockly-ab1e05f/google-blockly-ab1e05f/generators/javascript/math.js"></script>
+<script src="google-blockly-ab1e05f/google-blockly-ab1e05f/generators/javascript/text.js"></script>
+<script src="google-blockly-ab1e05f/google-blockly-ab1e05f/generators/javascript/lists.js"></script>
+<script src="google-blockly-ab1e05f/google-blockly-ab1e05f/generators/javascript/colour.js"></script>
+<script src="google-blockly-ab1e05f/google-blockly-ab1e05f/generators/javascript/variables.js"></script>
+<script src="google-blockly-ab1e05f/google-blockly-ab1e05f/generators/javascript/procedures.js"></script>
+<script src="google-blockly-ab1e05f/google-blockly-ab1e05f/generators/javascript/graphics.js"></script>
+<script src="google-blockly-ab1e05f/google-blockly-ab1e05f/blocks/logic.js"></script>
+<script src="google-blockly-ab1e05f/google-blockly-ab1e05f/blocks/loops.js"></script>
+<script src="google-blockly-ab1e05f/google-blockly-ab1e05f/blocks/math.js"></script>
+<script src="google-blockly-ab1e05f/google-blockly-ab1e05f/blocks/text.js"></script>
+<script src="google-blockly-ab1e05f/google-blockly-ab1e05f/blocks/lists.js"></script>
+<script src="google-blockly-ab1e05f/google-blockly-ab1e05f/blocks/colour.js"></script>
+<script src="google-blockly-ab1e05f/google-blockly-ab1e05f/blocks/variables.js"></script>
+<script src="google-blockly-ab1e05f/google-blockly-ab1e05f/blocks/procedures.js"></script>
+<script src="google-blockly-ab1e05f/google-blockly-ab1e05f/blocks/graphics.js"></script>
+<script src="google-blockly-ab1e05f/google-blockly-ab1e05f/msg/js/sv.js"></script>
+
+<script src="../three.js/build/three.min.js"></script>
+<script src="../three.js/examples/js/controls/TrackballControls.js"></script>
+<script src="../three.js/examples/js/Detector.js"></script>
+<script src="../three.js/examples/js/libs/stats.min.js"></script>
+
+<script src="js/objekt.js"></script>
+<script src="js/examples.js"></script>
+<script src="js/handler.js"></script>
+<script src="js/jquery.js"></script>
+<script src="js/App.js"></script>
+<script src="js/init.js"></script>
+
+
+<div id="wrapper">
+  <div id="blocklyDiv" style="width: 35%; height: 480px;"></div>
+  <div id="Text" style="width: 20%; height: 480px;">
+  <textarea id ="code" placeholder="Här kommer ditt projekt i javascript!"></textarea>
+  </div>
+  <!--<button id = "Run" onclick="runWrittenCode()">Kör kod!</button>-->
+	<div id="Canvas" style="width: 550px; height: 480px;"></div>
+  
+</div>
+
+<style>
+#wrapper {
+	overflow: hidden;
+}
+#blocklyDiv {
+  float:left;
+}
+#Text {
+  float: left;
+}
+#Canvas {
+  float: left;
+}
+#code{
+  height: 100%;
+  width: 98%;
+  font-size: 10px;
+}
+#Run{
+  float :left
+}
+</style>
+
+<xml id="toolbox2" style="display: none">
+  <category name="Logic" colour="210">
+    <block type="logic_compare"></block>
+    <block type="controls_if"></block>
+   </category>
+  <category name="Lists" colour="210">
+    <block type="lists_create_empty"></block>
+    <block type="lists_create_with"></block>
+    <block type="lists_repeat"></block>
+    <block type="lists_getIndex"></block>
+    <block type="lists_setIndex"></block></category>
+  <category name="Loops" colour="120">
+    <block type="controls_repeat_ext"></block>
+    <block type="graphics_infinite_flag"></block></category>
+  <category name="Math" colour="230">  
+    <block type="math_number"></block>
+    <block type="math_arithmetic"></block></category>
+  <category name="Graphics" colour="20">
+    <block type="graphics_make_sphere"></block>
+    <block type="graphics_make_cube"></block>
+    <block type="graphics_pointer"></block>
+    <block type="graphics_move_object"></block>
+    <block type="graphics_move_spec"></block>
+    <!--<block type="graphics_move_sim"></block>-->
+    <block type="graphics_rotate_object"></block>
+    <block type="graphics_line"></block>
+    <block type="graphics_point"></block>
+    <block type="graphics_color"></block>
+    <block type="colour_picker"></block></category>
+  <category name="Variables" colour="330" custom="VARIABLE"></category>
+  <category name="Functions" colour="290" custom="PROCEDURE"></category>
+</xml>
+<p>
+  <button onclick="showCode()">Visa kod</button>
+  <button onclick="runCode()">Kör</button>
+  <button onclick="saveCode()">Spara temporärt</button>
+  <button onclick="loadTemp()">Ladda</button>
+  <!--<button onclick="loadEx1()">Exempel 1</button>
+  <button onclick="loadEx2()">Exempel 2</button>
+  <button onclick="loadEx3()">Exempel 3</button>
+  <button onclick="loadEx4()">Exempel 4</button>
+  <button onclick="loadEx5()">Exempel 5</button>-->
+   <button onclick="loadExFromDB1()">Exempel 1</button>
+  <button onclick="loadExFromDB2()">Exempel 2</button>
+  <button onclick="loadExFromDB3()">Exempel 3</button>
+  <button onclick="loadExFromDB4()">Exempel 4</button>
+  <button onclick="loadExFromDB5()">Exempel 5</button>
+  <button onclick="resetCamera()">centrera kameran</button>
+  <button onclick="resetToolbox()">Ladda vanlig verktygslåda</button>
+  <button onclick="goGrid()">Rutnätsvy</button>
+  <button onclick="goNormal()">Normal vy</button>
+</p>
+<div id ="wrapper">
+<div id="allexamples" style="width: 15%; height: auto;"></div>
+<div id="myexamples" style="width: 15%; height: auto;"></div>
+<div id="login" style="width: 10%; height: auto;">
+  <h2>Logga in!</h2>
+      <form action="" id = "login">
+        <p><input type="text" name="login_name" id = "login_name" value="" placeholder="Namn"></p>
+        <p><input type="password" name="login_password" id = "login_password" value="" placeholder="Lösenord"></p>
+        <input type="submit" name="commit" value="Login">
+      </form>
+</div>
+<div id="register" style="width: auto; height: auto;">
+  <h2>Registrera!</h2>
+      <form action="" id = "register">
+        <p><input type="text" name="reg_name" id = "reg_name" value="" placeholder="Namn" required></p>
+        <p><input type="text" name="reg_skola" id = "reg_skola" value="" placeholder="Skola"  required></p>
+        <p><input type="password" name="reg_password" id = "reg_password" value="" placeholder="Lösenord"  required></p>
+        <p><input type="password" name="reg_password2" id = "reg_password2" value="" placeholder="Upprepa lösenord"  required></p>
+        <input type="submit" name="commit" value="Register">
+      </form>
+</div>
+<div id="searchexamples" style="width: 15%; height: auto;">
+  <form action="" id = "search">
+        <p><input type="text" name="search_name" id = "search_name" value="" placeholder="Namn"></p>
+        <input type="submit" name="commit" value="search">
+      </form> 
+</div>
+</div>
+<style>
+#wrapper{
+  border-color: black;
+  border-width: 1px;
+
+}
+#allexamples {
+  float: left;
+}
+#myexamples {
+  float: left;
+}
+#login {
+  float: left;
+}
+#register {
+  float: left;
+}
+#searchexamples{
+  float: left;
+}
+</style>
+<div id="allsettings" style="width: 15%; height: auto;"></div>
+<div id="mysettings" style="width: 15%; height: auto;"></div>
+<style>
+#allsettings {
+  float: left;
+}
+#mysettings {
+  float: left;
+}
+</style>
+<div id="toolboxEditor" style="width: 50%; height: 480px; text-align: center;"></div>
+
+<script>
+
+document.getElementById('allexamples').innerHTML = "Öppna Exempel";
+document.getElementById("allexamples").insertAdjacentHTML('beforeend', '<br><br>');
+document.getElementById('myexamples').innerHTML = "Logga in för att se dina projekt";
+
+document.getElementById('allsettings').innerHTML = "Öppna Verktygslådor";
+document.getElementById("allsettings").insertAdjacentHTML('beforeend', '<br><br>');
+document.getElementById('mysettings').innerHTML = "Logga in för att se dina verktygslådor";
+
+
+
+
+var canvasWidth = 750;
+var canvasHeight = 480;
+var scene = new THREE.Scene();
+var camera = new THREE.PerspectiveCamera( 80, canvasWidth/canvasHeight, 0.1, 5000 );
+
+var scale = 50;
+var renderer = new THREE.WebGLRenderer();
+
+renderer.setSize( canvasWidth, canvasHeight );
+container = document.getElementById( 'Canvas' );
+container.appendChild( renderer.domElement );
+
+var objects = [];
+
+var goals = [];
+var objectives = null;
+var walls = [];
+
+var pointer;
+
+var controls;
+
+var toolbox;
+var workspace;
+
+var userID;
+var UserExamples = [];
+
+init();
+render();
+
+
+
+//makeSystem(50);
+/*
+var workspace = Blockly.inject('blocklyDiv',
+      {toolbox: document.getElementById('toolbox2'),
+     grid:
+         {spacing: 20,
+          length: 3,
+          colour: '#ccc',
+          snap: true}, 
+     zoom:
+         {controls: true,
+          wheel: false,
+          startScale: 1.0,
+          maxScale: 3,
+          minScale: 0.3,
+          scaleSpeed: 1.2},
+     trashcan: true});
+*/
+//initialize();
+
+</script>
+<p id="demo"></p>
